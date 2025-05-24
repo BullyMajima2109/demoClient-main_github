@@ -1,5 +1,8 @@
 package com.example.democlient.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,14 +20,18 @@ import com.example.democlient.model.Product;
 import com.example.democlient.service.CartService;
 import com.example.democlient.service.ProductService;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/carts")
 public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @GetMapping
+    public ResponseEntity<List<Cart>> getAllCarts() {
+        List<Cart> carts = cartService.listAll();
+        return ResponseEntity.ok(carts);
+    }
 
     @Autowired
     private ProductService productService;
